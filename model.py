@@ -1,18 +1,17 @@
 import torch
 import torch.nn as nn
 
-class SimpleLSTM(nn.Module):
+class SimpleRNN(nn.Module):
     def __init__(self, input_size, hidden_size, output_size, device):
-        super(SimpleLSTM, self).__init__()
+        super(SimpleRNN, self).__init__()
         self.hidden_size = hidden_size
         self.device = device
-        self.lstm = nn.LSTM(input_size, hidden_size, batch_first=True)
+        self.rnn = nn.RNN(input_size, hidden_size, batch_first=True)
         self.f = nn.Linear(hidden_size, output_size)
  
     def forward(self, x):
         h0 = torch.zeros(1, x.size(0), self.hidden_size).to(self.device)
-        c0 = torch.zeros(1, x.size(0), self.hidden_size).to(self.device)
-        out, _ = self.lstm(x, (h0, c0))
+        out, _ = self.rnn(x, h0)
         out = self.f(out[:, -1, :])
         return out
 
