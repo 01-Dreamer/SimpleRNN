@@ -12,10 +12,10 @@ def generate_data(sample_num, seq_length):
     return inputs, lables
 
 input_size = 1
-hidden_size = 100
+hidden_size = 50
 output_size = 1
 
-sample_num = 100000
+sample_num = 1000
 seq_length = 2
  
 if __name__ == "__main__":
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     dataloader = Data.DataLoader(dataset=dataset, 
                                  batch_size=32, 
                                  shuffle=True,
-                                 num_workers=0)
+                                 num_workers=2)
     
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
